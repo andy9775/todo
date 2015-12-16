@@ -1,0 +1,4 @@
+workspace.xml
+*.ids
+datasources.xml
+.idea/
