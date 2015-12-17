@@ -157,7 +157,7 @@ def delete_lists(list):
             print(item + ' did not delete. Try running del-list again or '
                          'remove the list item manually')
 
-def call_hooks(action, todo_list, todo, script_args):
+def call_hooks(action, todo_list, add_todo, script_args, list_name):
     """
     Calls the hooks based on a certain user action. E.g. if a user calls
     `todo add "foo bar"
@@ -179,7 +179,8 @@ def call_hooks(action, todo_list, todo, script_args):
         directory += 'on_del_list'
     try:
         if os.path.exists(directory):
-            call([directory, action, ''.join(todo_list), todo, script_args])
+            call([directory, action, ''.join(todo_list), add_todo,
+                  list_name, script_args])
             return True
         return False
     except OSError as e:
@@ -309,7 +310,7 @@ if __name__ == '__main__':
         print_all_todos()
 
     if not hasattr(args, 'to_add'):
-        call_hooks(action, get_todo_list(args.list), '', args.script)
+        call_hooks(action, get_todo_list(args.list), '', args.script, args.list)
     else:
-        call_hooks(action,args.list, get_todo_list(args.list), args.to_add, \
-                              args.script)
+        call_hooks(action, get_todo_list(args.list), args.to_add,
+                   args.script, args.list)

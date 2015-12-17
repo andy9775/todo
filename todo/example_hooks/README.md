@@ -13,7 +13,8 @@ Each script is passed:<br>
 list_all<br>
 2. The current items in the todo list (including any updates)<br>
 3. Items being added to the list<br>
-4. Additional arguments as specified by the `-s` command line argument<br>
+4. The name of the list that is being called
+5. Additional arguments as specified by the `-s` command line argument<br>
  
 ###Setup
 1. if `~/.todo/` does not exists, create it
