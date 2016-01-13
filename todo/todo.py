@@ -4,6 +4,12 @@ import argparse
 import os
 from subprocess import call
 import sys
+import re
+
+# regular expression used to capture numbers with decimal separator at the
+# start of a line
+# eg captures '13.', '1.' etc.
+REG_EX = r'^\d+\.'
 
 # define constants:
 #===============================================
@@ -84,8 +90,6 @@ def delete_todo(item_num, todo_name):
     :type todo_name: str
     """
     todo_list = get_todo_list(todo_name)
-    # to_remove = todo_list[item_num - 1]
-    # todo_list.remove(to_remove)
     to_remove = []
     try:
         for num in item_num:
@@ -99,7 +103,7 @@ def delete_todo(item_num, todo_name):
         todo_list.remove(item)
     counter = 0
     for item in todo_list:
-        item = str(counter + 1) + item[1:len(item)]
+        item = re.sub(REG_EX, str(counter + 1) + '.', item)
         todo_list[counter] = item
         counter +=1
     with get_todo_file(todo_name, 'w') as f:
